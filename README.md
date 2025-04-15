@@ -5,10 +5,10 @@ There is support for GPS navigation, so you can call your turtles to you from a 
 
 Terminal Download Command:
 ```bash
-pending...
+wget https://github.com/HappySunChild/CC-Tweaked-Remote-Turtle-Terminal/raw/refs/heads/master/src/terminal/main.lua
 ```
 
 Turtle Receiver Download Command:
 ```bash
-pending...
+wget https://github.com/HappySunChild/CC-Tweaked-Remote-Turtle-Terminal/raw/refs/heads/master/src/turtle/main.lua
 ```
