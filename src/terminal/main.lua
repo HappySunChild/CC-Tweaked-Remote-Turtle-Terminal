@@ -1,14 +1,6 @@
 local completion = require("cc.completion")
 local pretty = require("cc.pretty")
 
----@class command_packet
----@field key string
----@field arguments rednet.transmittable[]
-
----@class request_packet
----@field type string
----@field body rednet.transmittable
-
 local COMMAND_PROTOCOL = "controller.command"
 local REQUEST_PROTOCOL = "controller.request"
 local RESPONSE_PROTOCOL = "controller.response"
@@ -19,7 +11,21 @@ local DISPLAY_STATS = {
 	"position",
 }
 
-local COMMANDS_LIST = {}
+local COMMANDS_LIST = {
+	"loadstring",
+
+	"shutdown",
+	"reboot",
+
+	"select",
+	"navigate",
+
+	"download",
+	"pastebin",
+	"wrun",
+
+	"turtles",
+}
 local COMMAND_COMPLETIONS = {
 	-- turtle
 	move = { default = { "up", "forward", "down", "back", "left", "right" } },
@@ -28,13 +34,6 @@ local COMMAND_COMPLETIONS = {
 	place = { { "up", "forward", "down" } },
 	drop = { { "up", "forward", "down" } },
 	suck = { { "up", "forward", "down" } },
-	select = {},
-	shutdown = {},
-	reboot = {},
-	loadstring = {},
-	navigate = {},
-	pastebin = {},
-	download = {},
 	shell = {
 		default = function(args)
 			local sLine = table.concat({ select(2, unpack(args)) }, " ")
@@ -44,7 +43,6 @@ local COMMAND_COMPLETIONS = {
 	},
 
 	-- terminal
-	turtles = {},
 	clear = { { "screen", "history" } },
 }
 
