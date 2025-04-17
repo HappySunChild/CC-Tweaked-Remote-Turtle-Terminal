@@ -21,6 +21,7 @@ local COMMANDS_LIST = {
 	"navigate",
 
 	"download",
+	"delete",
 	"pastebin",
 	"wrun",
 

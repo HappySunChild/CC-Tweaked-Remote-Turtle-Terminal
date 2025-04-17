@@ -95,6 +95,14 @@ local commandList = {
 
 		shell.execute("wget", url, path)
 	end,
+	-- delete a file
+	delete = function(path)
+		if not fs.exists(path) then
+			return
+		end
+
+		fs.delete(path)
+	end,
 
 	-- move the turtle
 	move = function(...)
