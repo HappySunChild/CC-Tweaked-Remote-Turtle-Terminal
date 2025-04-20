@@ -36,8 +36,9 @@ local function getFacing()
 
 	local start = getPosition()
 
-	turtle.dig()
-	turtle.forward()
+	repeat
+		turtle.dig()
+	until turtle.forward()
 
 	local finish = getPosition()
 
