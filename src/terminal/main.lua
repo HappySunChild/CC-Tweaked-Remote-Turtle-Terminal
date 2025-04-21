@@ -201,6 +201,32 @@ local TERMINAL_COMMANDS = {
 	end,
 }
 
+local CONNECT_TURTLE_MSG = "Connected #%d"
+
+---@param id number
+---@param info table<string, any>
+local function connectTurtle(id, info)
+	rednet.send(id, true, RESPONSE_PROTOCOL)
+
+	local pos = info.position
+
+	if pos then
+		pos = vector.new(pos.x, pos.y, pos.z)
+	end
+
+	connectedTurtles[id] = {
+		label = info.label,
+		fuel = info.fuel,
+		facing = info.facing,
+		position = pos,
+	}
+
+	local originalColor = term.getTextColor()
+	term.setTextColor(colors.lime)
+	print(CONNECT_TURTLE_MSG:format(id))
+	term.setTextColor(originalColor)
+end
+
 ---@param id number
 ---@param packet request_packet|rednet.transmittable
 local function processPacket(id, packet)
@@ -209,21 +235,7 @@ local function processPacket(id, packet)
 	end
 
 	if packet.type == "connect" then
-		rednet.send(id, true, RESPONSE_PROTOCOL)
-
-		local body = packet.body
-		local pos = body.position
-
-		if pos then
-			pos = vector.new(pos.x, pos.y, pos.z)
-		end
-
-		connectedTurtles[id] = {
-			label = body.label,
-			fuel = body.fuel,
-			position = pos,
-			facing = body.facing,
-		}
+		connectTurtle(id, packet.body)
 
 		return
 	end
